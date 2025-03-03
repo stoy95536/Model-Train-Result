@@ -68,7 +68,7 @@ Train:
       - DecodeImage: {img_mode: "RGB", channel_first: false}
       - CTCLabelEncode: # Class handling label
       - RecResizeImg: {image_shape: [3, 32, 320]}
-      - KeepKeys: {keep_keys: ["image", "label"]} # dataloader will return list in this order
+      - KeepKeys: {keep_keys: ["image", "label", "length"]} # dataloader will return list in this order
   loader:
     shuffle: True
     batch_size_per_card: 32
@@ -84,7 +84,7 @@ Eval:
       - DecodeImage: {img_mode: "RGB", channel_first: false}
       - CTCLabelEncode: # Class handling label
       - RecResizeImg: {image_shape: [3, 32, 320]}
-      - KeepKeys: {keep_keys: ["image", "label"]} # dataloader will return list in this order
+      - KeepKeys: {keep_keys: ["image", "label", "length"]} # dataloader will return list in this order
   loader:
     shuffle: False
     drop_last: False
