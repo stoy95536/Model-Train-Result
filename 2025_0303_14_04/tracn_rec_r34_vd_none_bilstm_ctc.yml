@@ -67,13 +67,14 @@ Train:
     transforms:
       - DecodeImage: {img_mode: "RGB", channel_first: false}
       - CTCLabelEncode: # Class handling label
-      - RecResizeImg: {image_shape: [3, 32, 320]}
+      - RecResizeImg: {image_shape: [3, 32, 512]}
       - KeepKeys: {keep_keys: ["image", "label", "length"]} # dataloader will return list in this order
   loader:
     shuffle: True
+    use_shared_memory: false
     batch_size_per_card: 32
     drop_last: True
-    num_workers: 4
+    num_workers: 2
 
 Eval:
   dataset:
@@ -83,10 +84,11 @@ Eval:
     transforms:
       - DecodeImage: {img_mode: "RGB", channel_first: false}
       - CTCLabelEncode: # Class handling label
-      - RecResizeImg: {image_shape: [3, 32, 320]}
+      - RecResizeImg: {image_shape: [3, 32, 512]}
       - KeepKeys: {keep_keys: ["image", "label", "length"]} # dataloader will return list in this order
   loader:
     shuffle: False
+    use_shared_memory: false
     drop_last: False
     batch_size_per_card: 32
-    num_workers: 4
+    num_workers: 2
